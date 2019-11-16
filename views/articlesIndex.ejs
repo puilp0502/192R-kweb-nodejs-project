@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>KWEB Board Page <%= page %></title>
+    <link rel="stylesheet" href="/stylesheets/style_v1.css">
+</head>
+<body>
+    <div class="page-body">
+        <!-- Header of Page -->
+        <div class="page-header">
+            <div class="page-title">KWEB Board Page <%= page %></div>
+            <ul>
+                <li><a href="/">Go to Home</a></li>
+                <li><a href="/article/compose">Compose New Article</a></li>
+            </ul>
+        </div>
+
+        <!-- List Articles -->
+        <div class="title-table">
+            <div class="title-row title-header">
+                <div class="article-id">Num</div>
+                <div class="article-title">Title</div>
+                <div class="article-author">Author</div>
+                <div class="article-lastupdated">Last Updated</div>
+            </div>
+            <% for (let i = 0; i < articles.length; i++) { %>
+                <div class="title-row">
+                    <% let article = articles[i] %>
+                    <div class="article-id"><%= article.pk %></div>
+                    <div class="article-title">
+                        <a href="/article/<%= article.pk %>"><%= article.title %></a>
+                    </div>
+                    <div class="article-author"><%= article.author %></div>
+                    <div class="article-lastupdated"><%= article.last_updated.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }) %></div>
+                </div>
+            <% } %>
+        </div>
+
+        <div class="pagination">
+            <!-- Previous Page -->
+            <% if (hasPrev) { %>
+                <div><a href="/articles/page/<%= page-1 %>">&lt; Previous Page</a></div>
+            <% } else { %>
+                <div class="disabled">&lt; Previous Page</div>
+            <% } %>
+            
+            <!-- Next Page -->
+            <% if (hasNext) { %>
+                <div><a href="/articles/page/<%= page+1 %>">&gt; Next Page</a></div>
+            <% } else { %>
+                <div class="disabled">&gt; Next Page</div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

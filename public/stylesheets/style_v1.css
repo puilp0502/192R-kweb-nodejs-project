@@ -1,0 +1,116 @@
+* {
+    box-sizing: initial!important;
+}
+
+.page-body {
+    padding: 0 15%;
+    width: 70%;
+    margin: 0;
+}
+
+.page-header {
+    padding: 50px 0 20px 0;
+    border-bottom: 2px solid black;
+}
+
+.page-title {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.title-table {
+    border-top: 2px solid black; 
+    border-bottom: 2px solid black; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.title-row {
+    padding: 8px 4px;
+    border-top: 1px solid #CCC;
+    font-size: 0;
+}
+
+.title-row:nth-child(0) {
+    border-top: none;
+}
+
+.title-row:not(.title-header):nth-child(odd) {
+    background-color: #EEE;
+}
+
+.title-row > div {
+    display: inline-block;
+    font-size: 15px;
+}
+
+.title-header {
+    display: block;
+    color: #000;
+    background-color: #EEE;
+    border-top: none;
+    font-weight: bold;
+}
+
+.title-row > .article-id {
+    width: 10%;
+}
+
+.title-row > .article-title {
+    width: 50%;
+}
+
+.title-row > .article-author {
+    width: 15%;
+}
+
+.title-row > .article-lastupdated {
+    width: 25%;
+}
+
+.pagination > div {
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.disabled {
+    color: #AAA;
+}
+
+.article-content {
+    padding: 15px 0;
+    color: black; 
+    font-size: 15px; 
+    line-height: 1.5;
+    word-wrap: break-word;
+    border-bottom: 2px solid black;
+}
+
+.article-content * {
+    max-width: 100% !important; 
+}
+
+.compose-title {
+    font-size: 25px;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box!important;
+}
+
+.update-article {
+    padding: 10px 0;
+}
+
+.adjacent-articles {
+    padding-top: 30px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    font-weight: bold;
+}

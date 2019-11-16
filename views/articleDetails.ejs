@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title><%= mainArticle.title %></title>
+    <link rel="stylesheet" href="/stylesheets/style_v1.css">
+</head>
+<body>
+    <div class="page-body">
+        <!-- Header of Page -->
+        <div class="page-header">
+            <ul>
+                <li><a href="/">Go to Home</a></li>
+                <li><a href="/articles/page/1">Go to Board</a></li>
+            </ul>
+            <div class="page-title article-title"><%= mainArticle.title %></div>
+            <div class="article-details">article by <%= mainArticle.author %> | <%= mainArticle.last_updated.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }) %></div>
+        </div>
+
+        <div class="article-content">
+            <%- mainArticle.content %>
+        </div>
+
+        <div class="update-article">
+            <a href="/article/edit/<%= mainArticle.pk %>">Edit Article</a> / <a href="/article/delete/<%= mainArticle.pk %>">Delete Article</a>
+        </div>
+
+        <div class="adjacent-articles">
+            <!-- Previous Article -->
+            <% if (prevArticle) { %>
+                <div><a href="/article/<%= prevArticle.pk %>">&lt; Previous Article: <%= prevArticle.title %></a></div>
+            <% } else { %>
+                <div class="disabled">&lt; Previous Article: Does not exist</div>
+            <% } %>
+            <!-- Next Article -->
+            <% if (nextArticle) { %>
+                <div><a href="/article/<%= nextArticle.pk %>">&gt; Next Article: <%= nextArticle.title %></a></div>
+            <% } else { %>
+                <div class="disabled">&gt; Next Article: Does not exist</div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>
