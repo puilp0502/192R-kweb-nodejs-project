@@ -9,8 +9,8 @@ module.exports = () => {
 				user: config.user,
 				password: config.password,
 				database: config.database,
-				port: config.port
-			})
+				port: config.port,
+			});
 		}
-	}
+	};
 };

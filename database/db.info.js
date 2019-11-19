@@ -7,5 +7,5 @@ module.exports = (() => {
 			database: 'kweb_community',
 			port: 3307,
 		}
-	}
+	};
 })();
