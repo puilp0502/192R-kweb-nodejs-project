@@ -41,7 +41,7 @@ exports.readArticle = async (req, res) => {
 
 exports.writeArticleForm = (req, res) => {
 	res.render('articleCompose.ejs', { article: null, user: req.session.user });
-}
+};
 
 exports.writeArticle = async (req, res) => {
 	const title = req.body.title.trim();
@@ -75,12 +75,18 @@ exports.editArticle = async (req, res) => {
 		const title = req.body.title.trim();
 		const content = req.body.content.trim();
 		if (!title || !content) {
-			res.send('<script>alert("Title or content is empty");history.back();</script>');
-		} else {
-			const sql = 'UPDATE article SET title=?, content=?, last_updated=NOW() WHERE pk=?';
-			await processQuery(sql, [title, content, articleId]);
-			res.redirect(`/article/${articleId}`);
+			return res.send('<script>alert("Title or content is empty");history.back();</script>');
 		}
+		const select_sql = 'SELECT author FROM article WHERE pk=?';
+		let result = await processQuery(select_sql, [articleId]);
+		const article = result[0];
+		if (article.author !== req.session.user.pk) {
+			return res.send('<script>alert("Cannot edit others\' article");history.back();</script>');
+		}
+		const sql = 'UPDATE article SET title=?, content=?, last_updated=NOW() WHERE pk=?';
+		await processQuery(sql, [title, content, articleId]);
+		res.redirect(`/article/${articleId}`);
+
 	} catch (e) {
 		throw e;
 	}
@@ -90,15 +96,18 @@ exports.deleteArticle = async (req, res) => {
 	try {
 		const articleId = req.params.articleId;
 		let sql = 'SELECT * FROM article WHERE is_active=1 AND is_deleted=0 AND pk=?';
-		const result = await processQuery(sql, [articleId]);
+		let result = await processQuery(sql, [articleId]);
 
 		if (result.length === 0) {
-			res.sendStatus(404);
-		} else {
-			sql = 'UPDATE article SET title="", content="", is_deleted=1 WHERE pk=?';
-			await processQuery(sql, [articleId]);
-			res.redirect('/articles/page/1');
+			return res.sendStatus(404);
 		}
+		if (result[0].author !== req.session.user.pk) {
+			return res.send('<script>alert("Cannot delete others\' article");history.back();</script>');
+		}
+		sql = 'UPDATE article SET title="", content="", is_deleted=1 WHERE pk=?';
+		await processQuery(sql, [articleId]);
+		res.redirect('/articles/page/1');
+
 	} catch (e) {
 		throw e;
 	}
