@@ -4,7 +4,8 @@ const processQuery = dbPool.processQuery;
 exports.readArticle = async (req, res) => {
     try {
         const articleId = parseInt(req.params.articleId);
-        const sql = 'SELECT * FROM `article` WHERE is_active=1 AND is_deleted=0 AND pk=?';
+        const sql = 'SELECT article.*, user.username FROM `article` INNER JOIN user ON article.author = user.pk' +
+			' WHERE article.is_active=1 AND article.is_deleted=0 AND article.pk=?';
 		let result = await processQuery(sql, [articleId]);
 		if (result.length === 0) {
 			res.sendStatus(404);
