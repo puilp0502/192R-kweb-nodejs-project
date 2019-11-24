@@ -14,7 +14,8 @@ exports.listArticles = async (req, res) => {
         }
 
         const articlesPerPage = 20;
-        const sql = 'SELECT * FROM `article` WHERE is_active=1 AND is_deleted=0 ORDER BY pk DESC';
+        const sql = 'SELECT article.*, user.username FROM `article` INNER JOIN user ON article.author = user.pk ' +
+            ' WHERE article.is_active=1 AND article.is_deleted=0 ORDER BY article.pk DESC';
         const result = await processQuery(sql);
 
         const maxPageNum = Math.ceil(result.length / articlesPerPage);
