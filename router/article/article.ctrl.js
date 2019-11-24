@@ -31,6 +31,7 @@ exports.readArticle = async (req, res) => {
 			mainArticle: mainArticle,
 			prevArticle: prevArticle,
 			nextArticle: nextArticle,
+			user: req.session.user,
 		});
     } catch (e) {
         throw e;

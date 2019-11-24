@@ -20,7 +20,11 @@
         </div>
 
         <div class="update-article">
-            <a href="/article/edit/<%= mainArticle.pk %>">Edit Article</a> / <a href="/article/delete/<%= mainArticle.pk %>">Delete Article</a>
+            <% if (user && user.pk === mainArticle.author) { %>
+                <a href="/article/edit/<%= mainArticle.pk %>">Edit Article</a>
+                /
+                <a href="/article/delete/<%= mainArticle.pk %>">Delete Article</a>
+            <% } %>
         </div>
 
         <div class="adjacent-articles">
