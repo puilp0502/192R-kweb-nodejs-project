@@ -38,7 +38,7 @@ exports.readArticle = async (req, res) => {
 };
 
 exports.writeArticleForm = (req, res) => {
-	res.render('articleCompose.ejs', { article: null });
+	res.render('articleCompose.ejs', { article: null, user: req.session.user });
 }
 
 exports.writeArticle = async (req, res) => {
@@ -49,7 +49,7 @@ exports.writeArticle = async (req, res) => {
 		res.send('<script>alert("Title or content is empty");history.back();</script>');
 	} else {
 		const sql = 'INSERT INTO article VALUES (NULL, ?, ?, ?, NOW(), NOW(), 1, 0)'
-		let result = await processQuery(sql, [title, content, 0]);
+		let result = await processQuery(sql, [title, content, req.session.user.pk]);
 		res.redirect(`/article/${result.insertId}`);
 	}
 };
@@ -61,7 +61,7 @@ exports.editArticleForm = async (req, res) => {
 		const result = await processQuery(sql, [articleId]);
 
 		if (result.length === 0) res.sendStatus(404);
-		else res.render('articleCompose.ejs', { article: result[0] });
+		else res.render('articleCompose.ejs', { article: result[0], user: req.session.user });
 	} catch (e) {
 		throw e;
 	}
