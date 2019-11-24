@@ -7,6 +7,14 @@
     <div class="page-body">
         <div class="page-header">
             <div class="page-title">Welcome to KWEB Community Page!</div>
+            <div>
+                <% if (user) { %>
+                    <div>Hello, <%= user.username %>! <a href="/auth/logout">Logout</a></div>
+                    <div></div>
+                <% } else { %>
+                    <div><a href="/auth/login">Login</a></div>
+                <% } %>
+            </div>
         </div>
         <ul>
             <li><a href="/articles">View Articles</a></li>

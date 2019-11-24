@@ -2,7 +2,7 @@ const dbPool = require('../lib/dbPool');
 const processQuery = dbPool.processQuery;
 
 exports.indexPage = (req, res) => {
-    res.render('index.ejs');
+    res.render('index.ejs', {user: req.session.user});
 };
 
 exports.listArticles = async (req, res) => {
